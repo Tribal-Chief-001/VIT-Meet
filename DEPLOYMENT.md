@@ -62,10 +62,6 @@
    LIVEKIT_URL=wss://your-project.livekit.cloud
    LIVEKIT_API_KEY=devkey_...
    LIVEKIT_API_SECRET=your-secret-key
-   
-   # Next.js Configuration
-   NEXTAUTH_SECRET=your-nextauth-secret
-   NEXTAUTH_URL=https://your-app-name.vercel.app
    ```
 
 3. **Deploy**
@@ -91,7 +87,6 @@
    vercel env add LIVEKIT_URL
    vercel env add LIVEKIT_API_KEY
    vercel env add LIVEKIT_API_SECRET
-   vercel env add NEXTAUTH_SECRET
    ```
 
 ### **4. Post-Deployment Configuration**
@@ -104,17 +99,8 @@
    - `LIVEKIT_URL`
    - `LIVEKIT_API_KEY`
    - `LIVEKIT_API_SECRET`
-   - `NEXTAUTH_SECRET`
-   - `NEXTAUTH_URL` (set to your Vercel URL)
 
 4. **Redeploy** after adding variables
-
-#### **Generate NEXTAUTH_SECRET**
-
-Run this command to generate a secure secret:
-```bash
-openssl rand -base64 32
-```
 
 ### **5. Test Your Deployment**
 

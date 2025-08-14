@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { LiveKitService } from '@/lib/livekit'
+import { Track } from 'livekit-client'
 
 export default function RoomPage() {
   const [isConnected, setIsConnected] = useState(false)
@@ -103,14 +104,16 @@ export default function RoomPage() {
       const room = liveKitInstance.getRoom()
       if (room && localVideoRef.current) {
         const localParticipant = room.localParticipant
-        const videoTrack = localParticipant.getTrack('video')
-        const audioTrack = localParticipant.getTrack('audio')
         
-        if (videoTrack) {
-          videoTrack.attach(localVideoRef.current)
+        // Get tracks from the participant
+        const videoTrack = localParticipant.getTrackPublication(Track.Source.Camera)
+        const audioTrack = localParticipant.getTrackPublication(Track.Source.Microphone)
+        
+        if (videoTrack && videoTrack.track) {
+          videoTrack.track.attach(localVideoRef.current)
         }
-        if (audioTrack) {
-          audioTrack.attach(localVideoRef.current)
+        if (audioTrack && audioTrack.track) {
+          audioTrack.track.attach(localVideoRef.current)
         }
       }
       

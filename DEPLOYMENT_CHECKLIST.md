@@ -36,8 +36,6 @@ In Vercel project settings → Environment Variables:
 - [ ] `LIVEKIT_URL` = `wss://your-project.livekit.cloud`
 - [ ] `LIVEKIT_API_KEY` = `your-api-key`
 - [ ] `LIVEKIT_API_SECRET` = `your-api-secret`
-- [ ] `NEXTAUTH_SECRET` = `generated-secret`
-- [ ] `NEXTAUTH_URL` = `https://your-app.vercel.app`
 
 ### **Step 3: Deploy**
 - [ ] Click "Deploy"
@@ -79,7 +77,6 @@ In Vercel project settings → Environment Variables:
 - [ ] In Vercel: Settings → Domains
 - [ ] Add custom domain
 - [ ] Update DNS records as instructed
-- [ ] Update `NEXTAUTH_URL` to custom domain
 - [ ] Test custom domain works
 
 ## **Monitoring Setup**

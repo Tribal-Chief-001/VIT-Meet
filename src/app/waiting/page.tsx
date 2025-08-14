@@ -2,9 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Alert, AlertDescription } from '@/components/ui/alert'
 
 export default function WaitingPage() {
   const [isSearching, setIsSearching] = useState(false)
@@ -149,19 +146,19 @@ export default function WaitingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-lg border border-gray-200">
+        <div className="p-8 text-center">
           <div className="mx-auto w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-4">
             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
-          <CardTitle className="text-2xl font-bold text-gray-900">Finding a Match</CardTitle>
-          <CardDescription className="text-gray-600">
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Finding a Match</h1>
+          <p className="text-gray-600">
             {status === 'searching' ? 'Looking for someone to chat with...' : 'Ready to start chatting'}
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="text-center space-y-6">
+          </p>
+        </div>
+        <div className="px-8 pb-8 text-center space-y-6">
           {status === 'searching' && (
             <div className="space-y-4">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
@@ -190,42 +187,38 @@ export default function WaitingPage() {
           )}
           
           {error && (
-            <Alert variant="destructive">
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
+            <div className="bg-red-50 border border-red-200 rounded-md p-3">
+              <p className="text-red-800 text-sm">{error}</p>
+            </div>
           )}
           
           <div className="space-y-3">
             {status === 'ready' ? (
-              <Button 
+              <button 
                 onClick={startSearching} 
-                className="w-full bg-blue-600 hover:bg-blue-700"
-                size="lg"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-md transition-colors"
               >
                 Start Searching
-              </Button>
+              </button>
             ) : (
-              <Button 
+              <button 
                 onClick={stopSearching} 
-                variant="outline" 
-                className="w-full"
-                size="lg"
+                className="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-4 rounded-md transition-colors"
               >
                 Stop Searching
-              </Button>
+              </button>
             )}
             
-            <Button 
+            <button 
               onClick={() => {
                 stopSearching()
                 localStorage.removeItem('vit-email')
                 router.push('/')
               }} 
-              variant="ghost" 
-              className="w-full text-gray-600 hover:text-gray-800"
+              className="w-full text-gray-600 hover:text-gray-800 font-medium py-2 px-4 rounded-md transition-colors"
             >
               Change Email
-            </Button>
+            </button>
           </div>
           
           <div className="text-xs text-gray-500 mt-6 space-y-1">
@@ -234,8 +227,8 @@ export default function WaitingPage() {
             <p>• You can skip to a new partner at any time</p>
             <p>• Average wait time: 1-3 minutes</p>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   )
 }
