@@ -5,7 +5,7 @@ import { useRouter, useParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { livekitService } from '@/lib/livekit'
+import { LiveKitService } from '@/lib/livekit'
 
 export default function RoomPage() {
   const [isConnected, setIsConnected] = useState(false)
@@ -32,7 +32,10 @@ export default function RoomPage() {
     
     return () => {
       // Cleanup when component unmounts
-      livekitService.disconnect()
+      const liveKitInstance = (window as any).liveKitInstance
+      if (liveKitInstance) {
+        liveKitInstance.disconnect()
+      }
     }
   }, [roomId, router])
 
@@ -59,19 +62,22 @@ export default function RoomPage() {
 
       const { token, url } = await response.json()
       
+      // Create a new LiveKit service instance for this room
+      const liveKitInstance = new LiveKitService()
+      
       // Set up LiveKit event handlers
-      livekitService.onConnected(() => {
+      liveKitInstance.onConnected(() => {
         setIsConnected(true)
         setStatus('connected')
       })
 
-      livekitService.onDisconnected(() => {
+      liveKitInstance.onDisconnected(() => {
         setIsConnected(false)
         setStatus('disconnected')
         setError('Connection lost. Please try again.')
       })
 
-      livekitService.onTrackSubscribed((track, publication) => {
+      liveKitInstance.onTrackSubscribed((track, publication) => {
         if (track.kind === 'video' && remoteVideoRef.current) {
           track.attach(remoteVideoRef.current)
         } else if (track.kind === 'audio' && remoteVideoRef.current) {
@@ -79,19 +85,22 @@ export default function RoomPage() {
         }
       })
 
-      livekitService.onTrackUnsubscribed((track, publication) => {
+      liveKitInstance.onTrackUnsubscribed((track, publication) => {
         track.detach()
       })
 
       // Initialize LiveKit connection
-      await livekitService.initialize({
+      await liveKitInstance.initialize({
         url,
         token,
         roomName: roomId
       })
       
+      // Store the instance for later use
+      ;(window as any).liveKitInstance = liveKitInstance
+      
       // Set up local video
-      const room = livekitService.getRoom()
+      const room = liveKitInstance.getRoom()
       if (room && localVideoRef.current) {
         const localParticipant = room.localParticipant
         const videoTrack = localParticipant.getTrack('video')
@@ -114,8 +123,11 @@ export default function RoomPage() {
 
   const toggleMute = async () => {
     try {
-      await livekitService.toggleAudio(!isMuted)
-      setIsMuted(!isMuted)
+      const liveKitInstance = (window as any).liveKitInstance
+      if (liveKitInstance) {
+        await liveKitInstance.toggleAudio(!isMuted)
+        setIsMuted(!isMuted)
+      }
     } catch (err) {
       console.error('Failed to toggle audio:', err)
     }
@@ -123,8 +135,11 @@ export default function RoomPage() {
 
   const toggleVideo = async () => {
     try {
-      await livekitService.toggleVideo(!isVideoOff)
-      setIsVideoOff(!isVideoOff)
+      const liveKitInstance = (window as any).liveKitInstance
+      if (liveKitInstance) {
+        await liveKitInstance.toggleVideo(!isVideoOff)
+        setIsVideoOff(!isVideoOff)
+      }
     } catch (err) {
       console.error('Failed to toggle video:', err)
     }
@@ -132,13 +147,19 @@ export default function RoomPage() {
 
   const skipPartner = () => {
     // Leave current room and go back to waiting
-    livekitService.disconnect()
+    const liveKitInstance = (window as any).liveKitInstance
+    if (liveKitInstance) {
+      liveKitInstance.disconnect()
+    }
     router.push('/waiting')
   }
 
   const leaveCall = () => {
     // Clean up and go back to home
-    livekitService.disconnect()
+    const liveKitInstance = (window as any).liveKitInstance
+    if (liveKitInstance) {
+      liveKitInstance.disconnect()
+    }
     localStorage.removeItem('vit-email')
     router.push('/')
   }
