@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: vit-random-video-chat
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:render
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: NEXT_PUBLIC_SOCKET_URL
+        value: https://your-service-name.onrender.com

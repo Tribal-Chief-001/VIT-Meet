@@ -9,6 +9,7 @@
     "build": "next build",
     "start": "NODE_ENV=production tsx server.ts & PORT=8080 next start",
     "start:railway": "NODE_ENV=production node server-railway.js & PORT=3000 next start",
+    "start:render": "NODE_ENV=production node server-render.js & PORT=10000 next start",
     "start:prod": "node server-production.js & PORT=8080 next start",
     "lint": "next lint",
     "db:push": "prisma db push",
