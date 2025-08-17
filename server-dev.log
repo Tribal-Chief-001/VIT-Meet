@@ -9,3 +9,13 @@
 [32m[nodemon] starting `npx tsx server.ts`[39m
 Video chat server running on port 3001
 Server stats: { waitingUsers: 0, activePairings: 0, totalUsers: 0 }
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+Video chat server running on port 3001
+Server stats: { waitingUsers: 0, activePairings: 0, totalUsers: 0 }
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npx tsx server.ts`[39m
+Video chat server running on port 3001
+Server stats: { waitingUsers: 0, activePairings: 0, totalUsers: 0 }
+SIGTERM received, shutting down gracefully
+Process terminated
