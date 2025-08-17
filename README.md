@@ -1,193 +1,250 @@
-# 🎥 VIT Meet – Randomized Video Chat for VIT Bhopal Students
+# VIT Random Video Chat
 
-A secure, real-time video chat platform exclusively for VIT Bhopal students. Connect randomly with fellow students through peer-to-peer video calls.
+A modern random video chat platform exclusively for VIT Bhopal students. Connect with fellow students through secure, anonymous video conversations.
 
-## ✨ Features
+## 🌟 Features
 
-- 🔒 **Email Filter Access** - Only VIT Bhopal students with `@vitbhopal.ac.in` emails can join
-- 🎲 **Random Matching** - Get paired with random VIT students for video chats
-- 🎥 **Real-time Video Chat** - High-quality WebRTC video calls with audio
-- ⏭️ **Skip Functionality** - Leave current call and find a new partner instantly
-- 📱 **Responsive Design** - Works seamlessly on desktop and mobile devices
-- 🔐 **Privacy Focused** - Anonymous chats with no personal data storage
-- 🚀 **Vercel Ready** - Fully deployable on Vercel with managed services
+### Core Functionality
+- 🔐 **Email Verification**: Only @vitbhopal.ac.in email addresses allowed
+- 🎥 **Video Chat**: High-quality peer-to-peer video calling
+- 🎤 **Audio Chat**: Clear audio communication
+- 🔀 **Random Matching**: Intelligent algorithm to pair users randomly
+- 🔄 **Quick Switch**: Easily find new chat partners
+
+### User Experience
+- 📱 **Responsive Design**: Works on desktop, tablet, and mobile
+- 🎨 **Modern UI**: Clean, intuitive interface with shadcn/ui components
+- ⚡ **Real-time**: Instant connections with WebRTC technology
+- 🔒 **Privacy**: No data storage beyond email verification
+- 🛡️ **Security**: Built-in reporting system for inappropriate behavior
+
+### Safety & Moderation
+- 🚩 **Report System**: Easy-to-use reporting for violations
+- 📋 **Community Guidelines**: Clear rules and expectations
+- 🔧 **Moderation**: Automated and manual moderation tools
+- 🚫 **Content Filtering**: Prevention of inappropriate content
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
+- VIT Bhopal email address (@vitbhopal.ac.in)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/vit-random-video-chat.git
+   cd vit-random-video-chat
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server**
+   ```bash
+   # Run both Next.js and Socket.io servers
+   npm run dev
+   
+   # Or run separately
+   npm run dev:next  # Next.js development server
+   npm run dev:server  # Socket.io server
+   ```
+
+4. **Open your browser**
+   - Frontend: http://localhost:3000
+   - Socket.io Server: http://localhost:3001
+
+## 📁 Project Structure
+
+```
+vit-random-video-chat/
+├── src/
+│   ├── app/
+│   │   ├── page.tsx              # Main landing page
+│   │   ├── chat/
+│   │   │   └── page.tsx         # Chat interface
+│   │   ├── guidelines/
+│   │   │   └── page.tsx         # Community guidelines
+│   │   └── layout.tsx           # Root layout
+│   ├── components/
+│   │   └── ui/                  # shadcn/ui components
+│   └── lib/
+│       └── socket.ts            # Socket.io server logic
+├── server.ts                    # Socket.io server entry point
+├── package.json
+├── tailwind.config.ts
+├── tsconfig.json
+└── README.md
+```
 
 ## 🛠️ Technology Stack
 
 ### Frontend
 - **Next.js 15** - React framework with App Router
-- **TypeScript** - Type-safe development
-- **Tailwind CSS** - Utility-first styling
-- **shadcn/ui** - Beautiful, accessible UI components
-- **LiveKit Client** - Real-time WebRTC communication
+- **TypeScript** - Type-safe JavaScript
+- **Tailwind CSS** - Utility-first CSS framework
+- **shadcn/ui** - Modern React component library
+- **Socket.io Client** - Real-time communication
+- **WebRTC** - Peer-to-peer video/audio
+- **Lucide React** - Beautiful icons
 
-### Backend & Services
-- **LiveKit** - Managed WebRTC signaling and infrastructure
-- **Next.js API Routes** - Serverless backend for matchmaking
-- **Vercel** - Deployment platform with edge functions
+### Backend
+- **Node.js** - JavaScript runtime
+- **Socket.io** - Real-time bidirectional communication
+- **WebRTC** - Peer-to-peer media streaming
+- **STUN Servers** - NAT traversal for WebRTC
 
-### Security
-- **Email Validation** - Regex-based VIT email verification
-- **Environment Variables** - Secure API key management
-- **Local Storage** - Client-side email persistence
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Node.js 18+ 
-- VIT Bhopal email address for testing
-- LiveKit account (for production deployment)
-
-### Installation
-
-1. **Clone and install dependencies**
-```bash
-git clone <repository-url>
-cd vit-meet
-npm install
-```
-
-2. **Set up environment variables**
-```bash
-cp .env.example .env.local
-```
-
-Edit `.env.local` with your LiveKit credentials:
-```env
-LIVEKIT_URL=wss://your-livekit-server.example.com
-LIVEKIT_API_KEY=your-livekit-api-key
-LIVEKIT_API_SECRET=your-livekit-api-secret
-```
-
-3. **Start development server**
-```bash
-npm run dev
-```
-
-4. **Open your browser**
-Navigate to [http://localhost:3000](http://localhost:3000)
+### Development Tools
+- **ESLint** - Code linting
+- **tsx** - TypeScript execution
+- **nodemon** - Auto-restart development server
 
 ## 🎯 How It Works
 
-### 1. Email Verification
-- Users enter their VIT Bhopal email address
-- System validates with regex: `^[a-zA-Z0-9._%+-]+@vitbhopal\.ac\.in$`
-- Valid emails are stored in localStorage for future sessions
+### User Flow
+1. **Landing Page**: User enters @vitbhopal.ac.in email
+2. **Email Verification**: System validates email domain
+3. **Chat Interface**: User is taken to the video chat interface
+4. **Find Partner**: User clicks "Start Chatting" to find a random partner
+5. **Video Chat**: Once matched, users can video chat with controls
+6. **End Chat**: Users can end chat and find new partners or exit
 
-### 2. Matchmaking
-- Users join a waiting pool for random matching
-- System pairs two available users automatically
-- Matched users are directed to a private video room
-
-### 3. Video Chat
-- WebRTC-powered peer-to-peer video calls
-- Real-time audio and video communication
-- Users can mute/unmute and toggle camera
-- Skip button to find a new partner
-
-### 4. Security Features
-- Only verified VIT Bhopal emails can access the platform
-- API keys secured through Vercel environment variables
-- No personal data stored on servers
-- Anonymous chat interactions
-
-## 📁 Project Structure
-
-```
-src/
-├── app/                          # Next.js App Router
-│   ├── api/                      # API routes
-│   │   ├── livekit/              # LiveKit token generation
-│   │   └── matchmaking/          # User matching logic
-│   ├── room/[roomId]/            # Video chat room
-│   ├── waiting/                  # Matchmaking waiting room
-│   └── page.tsx                  # Email validation
-├── components/                   # React components
-│   └── ui/                      # shadcn/ui components
-├── hooks/                       # Custom React hooks
-└── lib/                         # Utilities
-    ├── livekit.ts               # LiveKit service
-    ├── socket.ts                # Socket.io utilities
-    └── utils.ts                 # Helper functions
-```
+### Technical Flow
+1. **Socket.io Connection**: Client connects to real-time server
+2. **User Registration**: User joins with email verification
+3. **Matching Algorithm**: Server finds available users and pairs them
+4. **WebRTC Signaling**: Server exchanges connection details between peers
+5. **Peer Connection**: Direct video/audio connection established
+6. **Chat Management**: Server handles disconnections and re-matching
 
 ## 🔧 Configuration
 
-### LiveKit Setup
-1. Create a LiveKit account at [livekit.io](https://livekit.io)
-2. Set up a LiveKit server or use LiveKit Cloud
-3. Configure your server URL and API keys in `.env.local`
+### Environment Variables
+Create a `.env.local` file in the root directory:
 
-### Vercel Deployment
-1. Push your code to a Git repository
-2. Connect to Vercel
-3. Set environment variables in Vercel dashboard:
-   - `LIVEKIT_URL`
-   - `LIVEKIT_API_KEY`
-   - `LIVEKIT_API_SECRET`
-4. Deploy automatically on every push
+```env
+# Socket.io Server URL
+NEXT_PUBLIC_SOCKET_URL=http://localhost:3001
 
-## 🎨 Available Pages
+# Production URL (when deployed)
+NEXT_PUBLIC_SOCKET_URL=https://your-app-url.com
+```
 
-### `/` - Email Validation
-- VIT email input with regex validation
-- Error handling for invalid emails
-- Redirects to waiting room on success
+### Customization
+- **Stun Servers**: Modify ICE servers in `src/lib/socket.ts`
+- **Port Configuration**: Change ports in `package.json` scripts
+- **UI Themes**: Customize with Tailwind CSS classes
 
-### `/waiting` - Matchmaking
-- Real-time waiting status
-- Animated search indicator
-- Waiting time counter
-- Stop searching functionality
+## 🚀 Deployment
 
-### `/room/[roomId]` - Video Chat
-- Local and remote video displays
-- Mute/unmute controls
-- Camera toggle
-- Skip and leave call buttons
-- Connection status indicators
+### Development Deployment
+```bash
+# Build the application
+npm run build
 
-## 🔒 Security Considerations
+# Start production servers
+npm run start
+```
 
-- **Email Validation**: Strict regex pattern for VIT Bhopal emails
-- **API Security**: All sensitive data in environment variables
-- **No Data Storage**: Only uses localStorage for email persistence
-- **Anonymous Chats**: No personal information exchanged
-- **WebRTC Security**: Peer-to-peer encrypted connections
+### Production Deployment
+The application can be deployed to various platforms:
 
-## 🚀 Production Deployment
+#### 1. **Vercel** (Recommended for Next.js)
+- Connect your GitHub repository to Vercel
+- Configure environment variables
+- Deploy automatically on push
 
-### Vercel Requirements
-- Ensure all environment variables are set in Vercel
-- Configure domain settings
-- Set up proper CORS for LiveKit connections
-- Enable HTTPS for secure WebRTC
+#### 2. **Railway** (Full-stack deployment)
+- Deploy both frontend and backend
+- Free tier available
+- Easy configuration
 
-### LiveKit Configuration
-- Use LiveKit Cloud for managed service
-- Configure proper TURN/STUN servers
-- Set up room management and user limits
-- Monitor usage and scaling
+#### 3. **Render** (Alternative to Railway)
+- Similar to Railway
+- Good free tier
+- Simple setup
+
+#### 4. **Heroku** (Classic option)
+- Requires buildpacks for both Next.js and Node.js
+- Free tier available
+
+### Deployment Notes
+- The Socket.io server runs on port 3001 by default
+- Next.js runs on port 3000 by default
+- In production, both services need to be deployed
+- Use environment variables for configuration
+
+## 📱 Browser Support
+
+- ✅ **Chrome** 60+
+- ✅ **Firefox** 55+
+- ✅ **Safari** 11+
+- ✅ **Edge** 79+
+- ✅ **Mobile Chrome** 60+
+- ✅ **Mobile Safari** 11+
+
+## 🔒 Security Features
+
+### Email Verification
+- Only @vitbhopal.ac.in email addresses are accepted
+- No password storage - email verification only
+- Anonymous chat sessions
+
+### Privacy Protection
+- No recording of video/audio calls
+- No storage of personal information
+- Temporary session data only
+
+### Content Moderation
+- User reporting system
+- Automated violation detection
+- Community guidelines enforcement
+- Temporary and permanent bans for violations
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+We welcome contributions! Please follow these steps:
+
+1. **Fork the repository**
+2. **Create a feature branch** (`git checkout -b feature/amazing-feature`)
+3. **Commit your changes** (`git commit -m 'Add some amazing feature'`)
+4. **Push to the branch** (`git push origin feature/amazing-feature`)
+5. **Open a Pull Request**
+
+### Development Guidelines
+- Follow the existing code style
+- Use TypeScript for type safety
+- Test your changes thoroughly
+- Update documentation as needed
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
-- **VIT Bhopal** - For the student community
-- **LiveKit** - For the amazing WebRTC infrastructure
-- **Vercel** - For the excellent deployment platform
-- **shadcn/ui** - For the beautiful UI components
+- **VIT Bhopal** - For inspiring this platform
+- **Next.js Team** - For the amazing framework
+- **shadcn/ui** - For the beautiful components
+- **Socket.io** - For real-time communication
+- **WebRTC** - For peer-to-peer technology
+
+## 📞 Support
+
+For support, questions, or to report issues:
+
+- **Email**: support@vitrandomchat.com
+- **GitHub Issues**: Create an issue in the repository
+- **Discord**: Join our community server
+
+## 🌐 Live Demo
+
+Check out the live demo: [https://vit-random-video-chat.vercel.app](https://vit-random-video-chat.vercel.app)
 
 ---
 
-Built with ❤️ for VIT Bhopal students. Connect anonymously, chat safely! 🎓
+Built with ❤️ for VIT Bhopal students
