@@ -10,4 +10,4 @@ services:
       - key: PORT
         value: 10000
       - key: NEXT_PUBLIC_SOCKET_URL
-        value: https://your-service-name.onrender.com
+        value: https://vit-meet.onrender.com
